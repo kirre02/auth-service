@@ -12,7 +12,9 @@ datasource db {
 
 model User {
   id           String         @id @unique @default(uuid())
+  userName     String
   email        String         @unique
+  isAdmin      Boolean        @default(false)
   password     String
   refreshtoken refreshtoken[]
   createdAt    DateTime       @default(now())
