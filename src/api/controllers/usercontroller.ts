@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../utils/db";
-import { hashPw } from "../utils/hash";
+import { db } from "../../utils/db";
+import { hashPw } from "../../utils/hash";
 
 class userController {
   static async listAll(req: Request, res: Response) {
@@ -16,16 +16,22 @@ class userController {
   }
 
   static async getById(req: Request, res: Response) {
-    // get the id from the url
-    const id: string = req.params.id;
+    try {
+      // get the id from the url
+      const id: string = req.params.id;
 
-    // Get the specific user from the database
-    const user = await db.user.findUnique({
-      where: {
-        id: id,
-      },
-    });
-    res.send(user);
+      // Get the specific user from the database
+      const user = await db.user.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      return res.send(user);
+    } catch (error) {
+      return res.json({
+        error: error,
+      });
+    }
   }
 
   static async createUser(req: Request, res: Response) {

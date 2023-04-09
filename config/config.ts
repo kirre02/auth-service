@@ -1,3 +1,3 @@
-export   default{
-  jwtSecret:"Welcome"
-}
+export default {
+  jwtSecret: "Welcome",
+};
