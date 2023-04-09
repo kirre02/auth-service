@@ -11,4 +11,4 @@ The API returns a short-lived token (JWT), which expires in 15 minutes, and in H
 
 ## request flow
 
-![plans for the project](docs/auth-flow.png)
+![plans for the project](doc/auth-flow.png)
