@@ -1,4 +1,4 @@
-import { bcrypt } from "bcryptjs";
+import * as bcrypt from "bcrypt";
 
 export function hashPw(pw: string) {
   try {
