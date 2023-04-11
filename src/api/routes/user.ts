@@ -5,7 +5,7 @@ import { checkJwt } from "../middlewares/checkJwt";
 const r = Router();
 
 // Get all users
-r.get("/", [checkJwt], userController.listAll);
+r.get("/users", [checkJwt], userController.listAll);
 
 // Get one user
 r.get(
@@ -15,6 +15,6 @@ r.get(
 );
 
 //Create a new user
-r.post("/", [checkJwt], userController.createUser);
+r.post("/create", [checkJwt], userController.createUser);
 
 export default r;
