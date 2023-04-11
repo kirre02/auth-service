@@ -16,17 +16,7 @@ model User {
   email        String         @unique
   isAdmin      Boolean        @default(false)
   password     String
-  refreshtoken refreshtoken[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
 
-model refreshtoken {
-  id          String   @id @unique @default(uuid())
-  hashedToken String
-  userId      String
-  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked     Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
