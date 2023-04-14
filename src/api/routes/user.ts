@@ -15,6 +15,6 @@ r.get(
 );
 
 //Create a new user
-r.post("/create", [checkJwt], userController.createUser);
+r.post("/create", userController.createUser);
 
 export default r;

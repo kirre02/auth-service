@@ -7,7 +7,9 @@
     "start": "nodemon ./src/index.ts",
     "prod": "tsc && node ./build/app.js",
     "test": "jest --coverage",
-    "migration:run": "prisma migrate dev --name"
+    "migration:run": "prisma migrate dev --name",
+    "studio":"prisma studio",
+    "seed":"ts-node prisma/seed.ts"
   },
   "author": "Erik Svensson",
   "repository": {
