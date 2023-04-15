@@ -1,7 +1,10 @@
+import type { User } from "@prisma/client";
 import app from "../index";
 import { db } from "../utils/db";
 import request from "supertest";
-describe("Example Test", () => {
+
+import testUser from "../types/testModels";
+describe("create", () => {
   beforeAll(async () => {
     await db.$connect();
   });
@@ -11,10 +14,10 @@ describe("Example Test", () => {
   });
 
   it("should create a new user", async () => {
-    const newUser = {
-      name: "John",
-      email: "johndoe@example.com",
-      password: "password",
+    const newUser: testUser = {
+      username: "alice",
+      email: "alice@example.com",
+      password: "password1234",
     };
 
     const res = await request(app)
@@ -24,5 +27,20 @@ describe("Example Test", () => {
 
     const resData = res.body;
     expect(resData).toBeDefined();
+  });
+
+  it("returns bad request if first name is missing", async () => {
+    const failUser: testUser = {
+      username: "",
+      email: "john@test.io",
+      password: "password",
+    };
+    const res = await request(app)
+      .post("/user/create")
+      .send(failUser)
+      .expect(400);
+
+    const resData = res.body;
+    expect(resData).toBe("input or inputs are missing");
   });
 });

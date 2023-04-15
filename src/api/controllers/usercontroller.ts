@@ -37,6 +37,10 @@ class userController {
   static async createUser(req: Request, res: Response) {
     try {
       const { username, email, password } = req.body;
+      if (!username || !email || !password) {
+        res.status(400).json("input or inputs are missing");
+      }
+
       const hashed: any = hashPw(password);
       const newUser = await db.user.create({
         data: {
@@ -45,11 +49,11 @@ class userController {
           password: hashed,
         },
       });
-      return res.json({
+      return res.send().json({
         message: `${newUser.userName} account has been created`,
       });
     } catch (error) {
-      return res.json({ error: error });
+      return res.json(error);
     }
   }
 }

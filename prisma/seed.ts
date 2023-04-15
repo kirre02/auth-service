@@ -1,9 +1,12 @@
-import { Prisma } from "@prisma/client";
 import { db } from "../src/utils/db";
 import * as dotenv from "dotenv";
 import e from "express";
+import { hashPw } from "../src/utils/hash";
 
 dotenv.config();
+
+const hashedPw = hashPw(process.env.ROOT_PASSWORD)
+
 
 async function main() {
   const root = await db.user.upsert({
@@ -12,7 +15,7 @@ async function main() {
     create: {
       email: "root@auth.io",
       userName: "root",
-      password: process.env.ROOT_PASSWORD,
+      password: hashedPw,
       isAdmin: true,
     },
   });
