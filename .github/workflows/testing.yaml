@@ -22,7 +22,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       
-      - uses: pnpm/action-setup@v2
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 7.12.0
       
@@ -30,7 +31,8 @@ jobs:
         run: pnpm install
       
       - name: run tsc
-        uses: pnpm build
+        run: pnpm build
       
       - name: run test script
-        uses: pnpm test
+        run: pnpm test
+
