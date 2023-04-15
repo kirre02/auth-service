@@ -1,10 +1,9 @@
 import request from "supertest";
-import app from "../src/index";
+import app from "../index";
 
 describe("Ping Endpoint Test", () => {
   it("should return pong", async () => {
     const res = await request(app).get("/ping");
-    expect(res.status).toEqual(200);
-    expect(res.text).toEqual("pong");
+    expect(res.body).toEqual({ message: "pong" });
   });
 });

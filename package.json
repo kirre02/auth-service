@@ -4,7 +4,7 @@
   "description": "An api that will handle authentication for users",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon ./src/index.ts",
+    "dev": "nodemon ./src/index.ts",
     "prod": "tsc && node ./build/app.js",
     "test": "jest --coverage",
     "migration:run": "prisma migrate dev --name",
@@ -14,7 +14,7 @@
   "author": "Erik Svensson",
   "repository": {
     "type": "git",
-    "url": "https://github.com/w3cj/express-api-starter.git"
+    "url": "https://github.com/kirre02/auth-service.git"
   },
   "license": "MIT",
   "dependencies": {

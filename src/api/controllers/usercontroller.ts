@@ -53,7 +53,7 @@ class userController {
         message: `${newUser.userName} account has been created`,
       });
     } catch (error) {
-      return res.json(error);
+      return res.json({ error: error });
     }
   }
 }

@@ -9,5 +9,5 @@
      "esModuleInterop": true,
      "sourceMap": true,
   },
-  "exlude": ["./src/tests"] 
+  "exlude": ["./src/tests","node_modules"] 
 }
