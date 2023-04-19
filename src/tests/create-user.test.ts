@@ -1,18 +1,8 @@
-import type { User } from "@prisma/client";
 import app from "../index";
-import { db } from "../utils/db";
 import request from "supertest";
-
 import testUser from "../types/testModels";
-describe("create", () => {
-  beforeAll(async () => {
-    await db.$connect();
-  });
 
-  afterAll(async () => {
-    await db.$disconnect();
-  });
-
+describe("create user", () => {
   it("should create a new user", async () => {
     const newUser: testUser = {
       username: "alice",

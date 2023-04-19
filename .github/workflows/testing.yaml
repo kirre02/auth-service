@@ -8,6 +8,21 @@ on:
 jobs:
  testing:
     runs-on: ubuntu-latest
+    services:
+      psotgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
     strategy:
       matrix:
         node-version: [18]
@@ -31,7 +46,10 @@ jobs:
       
       - name: run tsc
         run: pnpm build
-      
-      - name: run test script
+
+      - name: run prisma db push 
+        run: pnpm db:push
+
+      - name: run test
         run: pnpm test
 

@@ -39,9 +39,10 @@ class userController {
       const { username, email, password } = req.body;
       if (!username || !email || !password) {
         res.status(400).json("input or inputs are missing");
+        return res.end();
       }
 
-      const hashed: any = hashPw(password);
+      const hashed = hashPw(password);
       const newUser = await db.user.create({
         data: {
           userName: username,
