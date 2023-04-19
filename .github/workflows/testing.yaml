@@ -50,6 +50,9 @@ jobs:
       - name: run prisma db push 
         run: pnpm db:push
 
+      - name: generate prisma types
+        run: pnpm prisma generate 
+
       - name: run test
         run: pnpm test
 
