@@ -1,0 +1,62 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+ testing:
+    runs-on: ubuntu-latest
+    services:
+      psotgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/auth_db
+      ROOT_PASSWORD: ${{ secrets.ROOT_PASSWORD }}
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.12.0
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: run tsc
+        run: pnpm build
+
+      - name: run prisma db push 
+        run: pnpm db:push
+
+      - name: generate prisma types
+        run: pnpm prisma generate 
+
+      - name: seed the database with some users  
+        run: pnpm seed
+        
+      - name: run test
+        run: pnpm test
+

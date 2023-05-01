@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "description": "An api that will handle authentication for users",
   "scripts": {
-    "build": "tsc",
-    "start": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "prod": "tsc && node ./build/app.js",
-    "migration:run": "prisma migrate dev --name"
+    "build": "tsc -p tsconfig-build.json",
+    "dev": "nodemon ./src/server.ts",
+    "prod": "tsc && node ./build/server.js",
+    "test": "jest --forceExit --coverage",
+    "db:push":"prisma db push",
+    "migration:run": "prisma migrate dev --name",
+    "studio":"prisma studio",
+    "seed":"ts-node prisma/seed.ts"
   },
   "author": "Erik Svensson",
   "repository": {
     "type": "git",
-    "url": "https://github.com/w3cj/express-api-starter.git"
+    "url": "https://github.com/kirre02/auth-service.git"
   },
   "license": "MIT",
   "dependencies": {
@@ -35,14 +39,16 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.0",
     "@types/jsonwebtoken": "^9.0.1",
+    "@types/supertest": "^2.0.12",
     "eslint": "^8.35.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "jest": "^29.5.0",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "prisma": "^4.12.0",
     "supertest": "^6.3.3",
-    "ts-node-dev": "^2.0.0"
+    "ts-jest": "^29.1.0"
   }
 }

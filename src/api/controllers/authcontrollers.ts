@@ -19,15 +19,16 @@ class authController {
     });
 
     //check if encrypted password match
-    if (!isPasswordValid(password)) {
+    if (!isPasswordValid(password, user.password)) {
       res.status(401).send();
       return;
     }
 
     // sign JWT, valid for
     const token = jwt.sign({ userId: user.id, email: email }, config.jwtSecret);
+
     // send JWT as a response
-    res.send(token);
+    res.json({ token });
   }
 
   static async changePassword(res: Response, req: Request) {
@@ -41,7 +42,7 @@ class authController {
     }
 
     // Check if old password matches
-    if (!isPasswordValid(oldPw)) {
+    if (!isPasswordValid(oldPw, newPw)) {
       res.status(400).send();
     }
 
@@ -57,7 +58,7 @@ class authController {
       },
     });
 
-    return res.json({
+    res.json({
       message: `${user.userName} password has been changed`,
     });
   }

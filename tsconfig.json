@@ -6,6 +6,8 @@
      "outDir": "./build",
      "emitDecoratorMetadata": true,
      "experimentalDecorators": true,
-     "sourceMap": true
-  }
+     "esModuleInterop": true,
+     "skipLibCheck": true,
+     "sourceMap": true,
+  },
 }

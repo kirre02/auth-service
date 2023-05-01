@@ -1,5 +1,9 @@
 version: "3.9"
 services:
+  auth_service:
+    build: .
+    ports:
+      - 9443:9443
   auth-db:
     container_name: localdb
     image: "postgres:15.2-alpine"
@@ -14,4 +18,3 @@ services:
 
 volumes:
   postgresData:
-  
