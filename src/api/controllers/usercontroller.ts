@@ -7,9 +7,9 @@ class userController {
     try {
       // Get users from the database
       const users = await db.user.findMany();
-      return res.json(users);
+      res.json(users);
     } catch (error) {
-      return res.json({
+      res.json({
         error: error,
       });
     }
@@ -26,11 +26,11 @@ class userController {
           id: id,
         },
       });
-      return res.send(user);
+      res.send(user);
     } catch (error) {
-      return res.json({
-        error: error,
-      });
+      if (res.status(400)) {
+        res.json({ error: error });
+      }
     }
   }
 
@@ -50,11 +50,32 @@ class userController {
           password: hashed,
         },
       });
-      return res.send().json({
+      res.send({
         message: `${newUser.userName} account has been created`,
       });
     } catch (error) {
-      return res.json({ error: error });
+      if (res.status(400)) {
+        res.send({ message: error });
+      }
+    }
+  }
+
+  static async deleteUser(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id;
+
+      const user = await db.user.delete({
+        where: {
+          id: id,
+        },
+      });
+      res.send().json({
+        message: `${user.userName} has been deleted`,
+      });
+    } catch (error) {
+      if (res.status(400)) {
+        res.json({ error: error });
+      }
     }
   }
 }

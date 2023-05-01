@@ -53,6 +53,9 @@ jobs:
       - name: generate prisma types
         run: pnpm prisma generate 
 
+      - name: seed the database with some users  
+        run: pnpm seed
+        
       - name: run test
         run: pnpm test
 

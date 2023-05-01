@@ -26,9 +26,9 @@ class authController {
 
     // sign JWT, valid for
     const token = jwt.sign({ userId: user.id, email: email }, config.jwtSecret);
-    
+
     // send JWT as a response
-    res.json({token});
+    res.json({ token });
   }
 
   static async changePassword(res: Response, req: Request) {
@@ -58,7 +58,7 @@ class authController {
       },
     });
 
-    return res.json({
+    res.json({
       message: `${user.userName} password has been changed`,
     });
   }

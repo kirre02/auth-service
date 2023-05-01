@@ -5,8 +5,8 @@ import testUser from "../types/testModels";
 describe("create user", () => {
   it("should create a new user", async () => {
     const newUser: testUser = {
-      username: "alice",
-      email: "alice@example.com",
+      username: "Elliot",
+      email: "elliot@test.io",
       password: "password1234",
     };
 

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "An api that will handle authentication for users",
   "scripts": {
-    "build": "tsc",
-    "dev": "nodemon ./src/index.ts",
-    "prod": "tsc && node ./build/app.js",
+    "build": "tsc -p tsconfig-build.json",
+    "dev": "nodemon ./src/server.ts",
+    "prod": "tsc && node ./build/server.js",
     "test": "jest --forceExit --coverage",
     "db:push":"prisma db push",
     "migration:run": "prisma migrate dev --name",

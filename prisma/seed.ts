@@ -1,28 +1,38 @@
 import { db } from "../src/utils/db";
+import { Prisma } from "@prisma/client";
 import * as dotenv from "dotenv";
 import e from "express";
 import { hashPw } from "../src/utils/hash";
 
 dotenv.config();
 
-const hashedPw = hashPw(process.env.ROOT_PASSWORD)
+const hashedPw = hashPw(process.env.ROOT_PASSWORD);
 
+const userData: Prisma.UserCreateInput[] = [
+  {
+    email: "root@auth.io",
+    userName: "root",
+    password: hashedPw,
+    isAdmin: true,
+  },
+  {
+    email: "alice@user.io",
+    userName: "alice",
+    password: "alice1234!",
+    isAdmin: false,
+  },
+];
 
 async function main() {
-  const root = await db.user.upsert({
-    where: { email: "root@auth.io" },
-    update: {},
-    create: {
-      email: "root@auth.io",
-      userName: "root",
-      password: hashedPw,
-      isAdmin: true,
-    },
-  });
-
-  console.log({ root });
+  console.log(`Start seeding ...`);
+  for (const u of userData) {
+    const user = await db.user.create({
+      data: u,
+    });
+    console.log(`Created user with id: ${user.id}`);
+  }
+  console.log(`Seeding finished.`);
 }
-
 main()
   .then(async () => {
     await db.$disconnect();
