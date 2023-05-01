@@ -22,7 +22,8 @@ jobs:
         ports:
           - 5432:5432
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/auth_db
+      ROOT_PASSWORD: ${{ secrets.ROOT_PASSWORD }}
     strategy:
       matrix:
         node-version: [18]
