@@ -9,8 +9,8 @@ describe("login a user", () => {
     const res = await request(app)
       .post("/auth/login")
       .send({
-        email: "johndoe@user.io",
-        password: "password123",
+        email: "elliot@test.io",
+        password: "password1234",
       })
       .expect(200);
 
